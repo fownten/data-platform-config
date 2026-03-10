@@ -1,9 +1,0 @@
-rootUser: admin
-rootPassword: password123
-mode: standalone
-persistence:
-  size: 10Gi
-service:
-  type: ClusterIP
-consoleService:
-  type: NodePort # this lets us access the ui

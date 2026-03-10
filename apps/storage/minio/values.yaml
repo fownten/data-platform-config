@@ -1,0 +1,23 @@
+# apps/storage/minio/values.yaml
+mode: standalone
+replicas: 1
+
+# Root credentials for your S3 layer
+rootUser: admin
+rootPassword: password123
+
+persistence:
+  enabled: true
+  size: 10Gi
+
+service:
+  type: ClusterIP
+
+# this is the ui
+consoleService:
+  type: NodePort
+
+resources:
+  requests:
+    memory: 256Mi
+    cpu: 100m
