@@ -29,6 +29,7 @@ metadata:
   namespace: data-layer
 spec:
   ports:
-    - port: 19120
+  - port: 19120
+    targetPort: 19120
   selector:
     app: nessie
