@@ -1,0 +1,10 @@
+primary:
+  persistence:
+    enabled: true
+    size: 8Gi
+  service:
+    type: ClusterIP
+  auth:
+    database: sensors_data
+    username: platform_admin
+    password: "supersecurepassword"
