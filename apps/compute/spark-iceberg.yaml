@@ -28,19 +28,19 @@ spec:
           - name: AWS_REGION
             value: "us-east-1"
           # spark configuration for spark
-          - name: SPARK_CONF_spark_sql_catalog_demo
+          - name: SPARK_CONF_spark_sql_catalog_local
             value: "org.apache.iceberg.spark.SparkCatalog"
-          - name: SPARK_CONF_spark_sql_catalog_demo_type
+          - name: SPARK_CONF_spark_sql_catalog_local_type
             value: "hadoop"
-          - name: SPARK_CONF_spark_sql_catalog_demo_warehouse
+          - name: SPARK_CONF_spark_sql_catalog_local_warehouse
             value: "s3a://warehouse/iceberg"
-          - name: SPARK_CONF_spark_sql_catalog_demo_endpoint
+          - name: SPARK_CONF_spark_sql_catalog_local_endpoint
             value: "http://minio.storage-layer.svc.cluster.local:9000"
           # disable ssl and enable path-style access (required for minio)
-          - name: SPARK_CONF_spark_sql_catalog_demo_s3_path_style_access
+          - name: SPARK_CONF_spark_sql_catalog_local_s3_path_style_access
             value: "true"
-          - name: SPARK_CONF_spark_sql_catalog_demo_s3_ssl_enabled
+          - name: SPARK_CONF_spark_sql_catalog_local_s3_ssl_enabled
             value: "false"
           - name: SPARK_CONF_spark_sql_default_catalog
-            value: "demo"
+            value: "local"
 
