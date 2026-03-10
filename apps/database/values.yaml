@@ -1,5 +1,5 @@
 image:
-  tag: 16-debian-12
+  tag: 16
 primary:
   persistence:
     enabled: true
