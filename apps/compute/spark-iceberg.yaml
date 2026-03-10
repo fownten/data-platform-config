@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: spark-iceberg
+  namespace: data-layer
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: spark
+  template:
+    metadata:
+      labels:
+        app: spark
+    spec:
+      containers:
+      - name: spark-iceberg
+        image: tabulario/spark-iceberg:3.5.0_2.12 # community standard for this stack
+        ports:
+        - containerPort: 8080 # spark ui
+        - containerPort: 10000 # thrift/sql server
+        env:
+        - name: AWS_ACCESS_KEY_ID
+          value: "admin"
+        - name: AWS_SECRET_ACCESS_KEY
+          value: "password123"
+        - name: AWS_REGION
+          value: "us-east-1"
