@@ -27,24 +27,15 @@ spec:
             value: "password123"
           - name: AWS_REGION
             value: "us-east-1"
-          # spark configuration for spark
-          - name: SPARK_CONF_spark_sql_catalog_local
+          - name: SPARK_CONF_spark_sql_catalog_nessie
             value: "org.apache.iceberg.spark.SparkCatalog"
-          - name: SPARK_CONF_spark_sql_catalog_local_type
-            value: "hadoop"
-          - name: SPARK_CONF_spark_sql_catalog_local_warehouse
+          - name: SPARK_CONF_spark_sql_catalog_nessie_catalog-impl
+            value: "org.apache.iceberg.nessie.NessieCatalog"
+          - name: SPARK_CONF_spark_sql_catalog_nessie_uri
+            value: "http://nessie.data-layer.svc.cluster.local:19120/api/v1"
+          - name: SPARK_CONF_spark_sql_catalog_nessie_ref
+            value: "main"
+          - name: SPARK_CONF_spark_sql_catalog_nessie_warehouse
             value: "s3a://warehouse/iceberg"
-          - name: SPARK_CONF_spark_sql_catalog_local_endpoint
-            value: "http://minio.storage-layer.svc.cluster.local:9000"
-          # disable ssl and enable path-style access (required for minio)
-          - name: SPARK_CONF_spark_sql_catalog_local_s3_path_style_access
-            value: "true"
-          - name: SPARK_CONF_spark_sql_catalog_local_s3_ssl_enabled
-            value: "false"
-          # ADD THIS: Map the 's3' scheme to the 's3a' implementation 
-          # just in case something internally still calls 's3'
-          - name: SPARK_CONF_spark_hadoop_fs_s3_impl
-            value: "org.apache.hadoop.fs.s3a.S3AFileSystem"
           - name: SPARK_CONF_spark_sql_default_catalog
-            value: "local"
-
+            value: "nessie"

@@ -1,0 +1,26 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: minio-storage
+  namespace: argocd
+spec:
+  project: default
+  sources:
+  - repoURL: https://charts.min.io/
+    chart: minio
+    targetRevision: 5.0.15
+    helm:
+      valueFiles:
+        - $values/apps/storage/minio/values.yaml
+  - repoURL: https://github.com/fownten/data-platform-config.git
+    targetRevision: HEAD
+    ref: values
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: storage-layer
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
