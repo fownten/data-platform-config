@@ -14,15 +14,28 @@ spec:
         app: spark
     spec:
       containers:
-      - name: spark-iceberg
-        image: tabulario/spark-iceberg:3.5.0_2.12 # community standard for this stack
+      - name: spark
+        image: tabulario/spark-iceberg:3.5.0_2.12
         ports:
-        - containerPort: 8080 # spark ui
-        - containerPort: 10000 # thrift/sql server
+          - containerPort: 8000 # spark master ui
+          - containerPort: 10000 # SQL / Thrift server
         env:
-        - name: AWS_ACCESS_KEY_ID
-          value: "admin"
-        - name: AWS_SECRET_ACCESS_KEY
-          value: "password123"
-        - name: AWS_REGION
-          value: "us-east-1"
+          # point spark to our minio s3
+          - name: AWS_ACCESS_KEY_ID
+            value: "admin"
+          - name: AWS_SECRET_ACCESS_KEY
+            value: "password123"
+          - name: AWS_REGION
+            value: "us-east-1"
+          # spark configuration for spark
+          - name: SPARK_CONF_spark_sql_catalog_demo
+            value: "org.apache.iceberg.spark.SparkCatalog"
+          - name: SPARK_CONF_spark_sql_catalog_demo_type
+            value: "hadoop"
+          - name: SPARK_CONF_spark_sql_catalog_demo_warehouse
+            value: "s3a://warehouse/"
+          - name: SPARK_CONF_spark_sql_catalog_demo_endpoint
+            value: "http://minio.storage-layer.svc.cluster.local:9000"
+          - name: SPARK_CONF_spark_sql_default_catalog
+            value: "demo"
+
