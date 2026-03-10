@@ -6,8 +6,8 @@ primary:
     size: 8Gi
   service:
     type: ClusterIP
-  auth:
-    database: sensors_data
-    username: platform_admin
-    password: "supersecurepassword"
-    existingSecret: ""
+auth:
+  database: sensors_data
+  username: platform_admin
+  password: "supersecurepassword"
+  existingSecret: ""
