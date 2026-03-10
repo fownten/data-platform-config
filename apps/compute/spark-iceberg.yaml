@@ -33,9 +33,14 @@ spec:
           - name: SPARK_CONF_spark_sql_catalog_demo_type
             value: "hadoop"
           - name: SPARK_CONF_spark_sql_catalog_demo_warehouse
-            value: "s3a://warehouse/"
+            value: "s3a://warehouse/iceberg"
           - name: SPARK_CONF_spark_sql_catalog_demo_endpoint
             value: "http://minio.storage-layer.svc.cluster.local:9000"
+          # disable ssl and enable path-style access (required for minio)
+          - name: SPARK_CONF_spark_sql_catalog_demo_s3_path_style_access
+            value: "true"
+          - name: SPARK_CONF_spark_sql_catalog_demo_s3_ssl_enabled
+            value: "false"
           - name: SPARK_CONF_spark_sql_default_catalog
             value: "demo"
 
