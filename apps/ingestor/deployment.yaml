@@ -8,12 +8,12 @@ spec:
   selector:
     matchLabels:
       app: ingestor
-    template:
-      metadata:
-        labels:
-          app: ingestor
-      spec:
-        containers:
-        - name: ingestor
-          image: my-ingestor:v1
-          imagePullPolicy: Never # crucial for local kind images
+  template:
+    metadata:
+      labels:
+        app: ingestor
+    spec:
+      containers:
+      - name: ingestor
+        image: my-ingestor:v1
+        imagePullPolicy: Never # crucial for local kind images
