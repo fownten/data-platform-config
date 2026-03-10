@@ -10,3 +10,4 @@ primary:
     database: sensors_data
     username: platform_admin
     password: "supersecurepassword"
+    existingSecret: ""
