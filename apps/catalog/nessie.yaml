@@ -1,4 +1,4 @@
-apiVerison: apps/v1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: nessie
@@ -17,10 +17,12 @@ spec:
         - name: nessie
           image: projectnessie/nessie:latest
           ports:
-            - containerPort:19120 # rest api
+            - containerPort: 19120 # rest api
           env:
             - name: QUARKUS_DYNAMODB_ENDPOINT
               value: "http://minio.storage-layer.svc.cluster.local:9000"
+            - name: QUARKUS_S3_PATH_STYLE_ACCESS # needed for minio
+              value: "true"
 ---
 apiVersion: v1
 kind: Service
