@@ -1,5 +1,5 @@
 image:
-  tag: 16
+  tag: latest
 primary:
   persistence:
     enabled: true
