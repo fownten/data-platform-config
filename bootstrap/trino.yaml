@@ -13,30 +13,14 @@ spec:
       values: |
         image:
           pullSecrets: []
-        coordinator:
-          additionalHostAliases:
-            - ip: "10.96.166.39"
-              hostnames:
-                - "minio.internal"
-            - ip: "10.96.3.204"
-              hostnames:
-                - "nessie.internal"
-        worker:
-          AdditionalHostAliases:
-            - ip: "10.96.166.39"
-              hostnames:
-                - "minio.internal"
-            - ip: "10.96.3.204"
-              hostnames:
-                - "nessie.internal"
         additionalCatalogs:
           nessie: |
             connector.name=iceberg
             iceberg.catalog.type=nessie
-            iceberg.nessie-catalog.uri=http://nessie.internal:19120/api/v1
+            iceberg.nessie-catalog.uri=http://nessie.data-layer.svc.cluster.local:19120/api/v1
             iceberg.nessie-catalog.default-warehouse-dir=s3a://warehouse/iceberg
             iceberg.nessie-catalog.ref=main
-            hive.s3.endpoint=http://minio.internal:9000
+            hive.s3.endpoint=http://minio.storage-layer.svc.cluster.local:9000
             hive.s3.aws-access-key=admin
             hive.s3.aws-secret-key=password123
             hive.s3.path-style-access=true
