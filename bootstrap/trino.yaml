@@ -16,8 +16,9 @@ spec:
         server:
           workers: 1
           config:
-            query.max-memory: "512MB"
-            query.max-memory-per-node: "256MB"
+            query:
+              maxMemory: "512MB"
+              maxMemoryPerNode: "256MB"
         coordinator:
           jvm:
             maxHeapSize: "1G"
