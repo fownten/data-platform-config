@@ -15,16 +15,12 @@ spec:
           pullSecrets: []
         server:
           workers: 1
-          config:
-            query:
-              maxMemory: "512MB"
-              maxMemoryPerNode: "256MB"
         coordinator:
           jvm:
-            maxHeapSize: "1G"
+            maxHeapSize: "2G"
         worker:
           jvm:
-            maxHeapSize: "1G"
+            maxHeapSize: "2G"
         additionalCatalogs:
           nessie: |
             connector.name=iceberg
