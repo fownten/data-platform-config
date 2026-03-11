@@ -13,6 +13,14 @@ spec:
       values: |
         image:
           pullSecrets: []
+        server:
+          workers: 1
+        coordinator:
+          jvm:
+            maxHeapSize: "1G"
+        worker:
+          jvm:
+            maxHeapSize: "1G"
         additionalCatalogs:
           nessie: |
             connector.name=iceberg
