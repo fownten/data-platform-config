@@ -27,6 +27,8 @@ spec:
           - containerPort: 8000 # spark master ui
           - containerPort: 10000 # SQL / Thrift server
         env:
+          - name: SPARK_CONF_DIR
+            value: "/etc/spark/conf" # <--- Force Spark to look here
           # point spark to our minio s3
           - name: AWS_ACCESS_KEY_ID
             value: "admin"
