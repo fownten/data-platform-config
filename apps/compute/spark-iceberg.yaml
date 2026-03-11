@@ -13,10 +13,13 @@ spec:
       labels:
         app: spark
     spec:
-      dnsConfig:
-        options:
-          - name: ndots
-            value: "1" # This makes DNS resolution 10x faster for external-ish names
+      hostAliases:
+        - ip: "10.96.166.39" # minio-storage clusterip goes here
+          hostnames:
+            - "minio.internal"
+        - ip: "10.96.3.204" # nessie clusterop goes here
+          hostnames:
+            - "nessie.internal"
       containers:
       - name: spark
         image: fownten/spark-iceberg:3.5.0_1.4.2
@@ -36,10 +39,22 @@ spec:
           - name: SPARK_CONF_spark_sql_catalog_nessie_catalog-impl
             value: "org.apache.iceberg.nessie.NessieCatalog"
           - name: SPARK_CONF_spark_sql_catalog_nessie_uri
-            value: "http://nessie.data-layer.svc.cluster.local:19120/api/v1"
+            value: "http://nessie.internal:19120/api/v1"
           - name: SPARK_CONF_spark_sql_catalog_nessie_ref
             value: "main"
           - name: SPARK_CONF_spark_sql_catalog_nessie_warehouse
             value: "s3a://warehouse/iceberg"
           - name: SPARK_CONF_spark_sql_default_catalog
             value: "nessie"
+          - name: SPARK_CONF_spark_hadoop_fs_s3a_endpoint
+            value: "http//minio.internal:9000"
+          - name: SPARK_CONF_spark_hadoop_fs_s3a_access_key
+            value: "admin"
+          - name: SPARK_CONF_spark_hadoop_fs_s3a_secret_key
+            value: "password123"
+          - name: SPARK_CONF_spark_hadoop_fs_s3a_path_style_access
+            value: "true"
+          - name: SPARK_CONF_spark_hadoop_fs_s3a_connection_ssl_enabled
+            value: "false"
+          - name: SPARK_CONF_spark_hadoop_fs_s3a_impl
+            value: "org.apache.hadoop.fs.s3a.S3AFileSystem"
