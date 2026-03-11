@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: spark-defaults
+  namespace: data-layer
+data:
+  spark-defaults.conf: |
+    spark.sql.catalog.nessie org.apache.iceberg.spark.SparkCatalog
+    spark.sql.catalog.nessie.catalog-impl org.apache.iceberg.nessie.NessieCatalog
+    spark.sql.catalog.nessie.uri http://nessie.internal:19120/api/v1
+    spark.sql.catalog.nessie.ref main
+    spark.sql.catalog.nessie.warehouse s3a://warehouse/iceberg
+    spark.sql.defaultCatalog nessie
+    spark.hadoop.fs.s3a.endpoint http://minio.internal:9000
+    spark.hadoop.fs.s3a.access.key admin
+    spark.hadoop.fs.s3a.secret.key password123
+    spark.hadoop.fs.s3a.path.style.access true
+    spark.hadoop.fs.s3a.connection.ssl.enabled false
+    spark.hadoop.fs.s3a.impl org.apache.hadoop.fs.s3a.S3AFileSystem
