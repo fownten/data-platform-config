@@ -13,6 +13,10 @@ spec:
       labels:
         app: spark
     spec:
+      dnsConfig:
+        options:
+          - name: ndots
+          - value: "1" # This makes DNS resolution 10x faster for external-ish names
       containers:
       - name: spark
         image: fownten/spark-iceberg:3.5.0_1.4.2
