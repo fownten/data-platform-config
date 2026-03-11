@@ -1,0 +1,18 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: go-data-producer
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/fownten/data-platform-config.git
+    targetRevision: HEAD
+    path: apps/go-producer # ArgoCD will watch this folder
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: data-layer
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true

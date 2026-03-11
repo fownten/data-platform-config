@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: go-producer
+  namespace: data-layer
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: producer
+  template:
+    metadata:
+      labels:
+        app: producer
+    spec:
+      hostAliases:
+        - ip: "10.96.166.39" # Must match your MinIO ClusterIP
+          hostnames:
+            - "minio.internal"
+      containers:
+      - name: producer
+        image: dpl/go-producer:latest # Replace with your image
+        imagePullPolicy: Always
