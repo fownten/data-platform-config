@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
       - name: spark
-        image: tabulario/spark-iceberg:3.5.0_1.4.2
+        image: fownten/spark-iceberg:3.5.0_1.4.2
         ports:
           - containerPort: 8000 # spark master ui
           - containerPort: 10000 # SQL / Thrift server
