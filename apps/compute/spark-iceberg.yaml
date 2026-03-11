@@ -34,7 +34,10 @@ spec:
             value: "password123"
           - name: AWS_REGION
             value: "us-east-1"
+        volumeMounts:
+          - name: spark-conf-vol
+            mountPath: "/etc/spark/conf"
       volumes:
-        - name: spark-conf
+        - name: spark-conf-vol
           configMap:
             name: spark-defaults
