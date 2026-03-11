@@ -19,5 +19,5 @@ spec:
             - "minio.internal"
       containers:
       - name: producer
-        image: dpl/go-producer:latest # Replace with your image
-        imagePullPolicy: Always
+        image: dpl/go-producer:v1 # Replace with your image
+        imagePullPolicy: Never # it should be uploaded to kind
