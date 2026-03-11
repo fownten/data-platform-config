@@ -14,7 +14,7 @@ spec:
         image:
           pullSecrets: []
         coordinator:
-          hostAliases:
+          additionalHostAliases:
             - ip: "10.96.166.39"
               hostnames:
                 - "minio.internal"
@@ -22,7 +22,7 @@ spec:
               hostnames:
                 - "nessie.internal"
         worker:
-          hostAliases:
+          AdditionalHostAliases:
             - ip: "10.96.166.39"
               hostnames:
                 - "minio.internal"
