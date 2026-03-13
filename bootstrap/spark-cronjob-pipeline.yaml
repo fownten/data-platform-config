@@ -14,19 +14,25 @@ spec:
           restartPolicy: OnFailure
           containers:
             - name: spark-job
-              image: dpl/pipeline:v1 # <--- Your custom image
-              imagePullPolicy: Never # <--- Tells K8s to use the local image we just sideloaded
+              image: dpl/pipeline:v1
+              imagePullPolicy: Never
               command:
                 - "/bin/bash"
                 - "-c"
                 - >
                   spark-submit 
+                  --conf "spark.driver.extraJavaOptions=-Duser.name=spark"
                   --packages org.apache.iceberg:iceberg-spark-runtime-3.5_2.12:1.4.3,org.projectnessie.nessie-integrations:nessie-spark-extensions-3.5_2.12:0.77.1,org.apache.hadoop:hadoop-aws:3.3.4
                   /app/ingest.py
               env:
-                # Inject a writable home directory for the JVM/Ivy
                 - name: HOME
                   value: "/tmp"
+                # Stop Hadoop and Java from guessing the user
+                - name: USER
+                  value: "spark"
+                - name: HADOOP_USER_NAME
+                  value: "spark"
+                # AWS / MinIO Credentials
                 - name: AWS_REGION
                   value: "us-east-1"
                 - name: AWS_ACCESS_KEY_ID
