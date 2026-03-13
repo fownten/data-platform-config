@@ -4,7 +4,7 @@ metadata:
   name: go-producer
   namespace: data-layer
 spec:
-  replicas: 1
+  replicas: 0
   selector:
     matchLabels:
       app: producer

@@ -8,7 +8,7 @@ def main():
         SparkSession.builder.appName("Minio_to_Iceberg_Batch")
         .config(
             "spark.hadoop.fs.s3a.endpoint",
-            "http://minio.storage-layer.svc.cluster.local:9000",
+            "http://10.96.166.39:9000",
         )
         .config("spark.hadoop.fs.s3a.access.key", "admin")
         .config("spark.hadoop.fs.s3a.secret.key", "password123")
@@ -42,7 +42,9 @@ def main():
             print("No new data found.")
             sys.exit(0)
         print(f"Found {df.count()} records. Appending to Iceberg...")
-        df.write.format("iceberg").mode("append").save("nessie.gold.testing_table")
+        df.write.format("iceberg").mode("append").saveAsTable(
+            "nessie.gold.sensor_telemetry"
+        )
         # Clean up landing zone
         URI = spark._jvm.java.net.URI
         Path = spark._jvm.org.apache.hadoop.fs.Path
