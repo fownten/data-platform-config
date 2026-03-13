@@ -21,7 +21,9 @@ spec:
                 - "-c"
                 - >
                   spark-submit 
-                  --conf "spark.driver.extraJavaOptions=-Duser.name=spark"
+                  --conf "spark.driver.extraJavaOptions=-Duser.home=/tmp -Duser.name=spark"
+                  --conf "spark.executor.extraJavaOptions=-Duser.home=/tmp -Duser.name=spark"
+                  --conf spark.jars.ivy=/tmp/.ivy2
                   --packages org.apache.iceberg:iceberg-spark-runtime-3.5_2.12:1.4.3,org.projectnessie.nessie-integrations:nessie-spark-extensions-3.5_2.12:0.77.1,org.apache.hadoop:hadoop-aws:3.3.4
                   /app/ingest.py
               env:
