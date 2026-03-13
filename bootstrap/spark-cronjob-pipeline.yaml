@@ -1,0 +1,32 @@
+# bootstrap/spark-cronjob.yaml
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: spark-ingest-pipeline
+  namespace: data-layer
+spec:
+  schedule: "* * * * *" # Every 1 minute
+  concurrencyPolicy: Forbid 
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          restartPolicy: OnFailure
+          containers:
+            - name: spark-job
+              image: dpl/pipeline:v1 # <--- Your custom image
+              imagePullPolicy: Never # <--- Tells K8s to use the local image we just sideloaded
+              command:
+                - "/bin/bash"
+                - "-c"
+                - >
+                  spark-submit 
+                  --packages org.apache.iceberg:iceberg-spark-runtime-3.5_2.12:1.4.3,org.projectnessie.nessie-integrations:nessie-spark-extensions-3.5_2.12:0.77.1,org.apache.hadoop:hadoop-aws:3.3.4
+                  /app/ingest.py
+              env:
+                - name: AWS_REGION
+                  value: "us-east-1"
+                - name: AWS_ACCESS_KEY_ID
+                  value: "admin"
+                - name: AWS_SECRET_ACCESS_KEY
+                  value: "password123"
