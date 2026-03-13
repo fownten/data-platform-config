@@ -32,7 +32,9 @@ def main():
         .getOrCreate()
     )
 
-    LANDING_ZONE = "s3a://landing/"  # <-- Update to your Go app's output path
+    LANDING_ZONE = (
+        "s3a://warehouse/landing/heartbeats"  # <-- Update to your Go app's output path
+    )
     print("Reading new data from Landing Zone...")
     try:
         df = spark.read.json(LANDING_ZONE)  # Change to .parquet() if needed
